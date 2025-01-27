@@ -1,0 +1,45 @@
+Problem Statement:
+Print the average of three numbers entered by user by creating a class named 'Average'having a method to calculate and print the average.
+
+Solution:
+#include<iostream>
+using namespace std;
+
+class Average{
+    int a,b,c;
+    
+public:
+    Average(){
+        int x,y,z;
+        cout<<"Enter first element:";
+        cin>>x;
+        cout<<"Enter second element:";
+        cin>>y;
+        cout<<"Enter third element:";
+        cin>>z;
+
+
+        this->a=x;
+        this->b=y;
+        this->c=z;
+    }
+
+    void calculateAvg(){
+        float k=(float)(a+b+c)/3;
+        cout<<"Average of the given numbers is "<<k;
+    }
+};
+
+int main(){
+    Average av;
+    av.calculateAvg();
+    return 0;
+}
+
+
+//Explanation:
+In the above code I have created a class named 'Average' having three member variables as 'a','b' and 'c', no arguments are passed to the constructor since we need to take input from user,
+therefore I have taken three temporary variables namely 'x,y and z' which will be used to take input from user and will assign values to member variables of the class.
+The 'calculateAvg' function is a void type function with no arguments, this is used to calculate and print the average of the user provided values.
+Since 'calculateAvg' is a void type function hence it will not return any value.
+In the main function we create an object 'av' of class average, and using this object we call the 'calculateAvg' function.
