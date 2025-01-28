@@ -1,0 +1,46 @@
+//Problem Statement:
+Write a program by creating an 'Employee' class having the following methods and printthe final salary.
+ 1 - 'getInfo()' which takes the salary, number of hours of work per day of employee as parameter
+ 2 - 'AddSal()'   which   adds   $10   to   salary   of   the   employee if it is less than $500.
+ 3 - 'AddWork()' which adds $5 to salary of employee if the number of hours of work per day is more than 6 hours.
+
+//Solution:
+#include<iostream>
+using namespace std;
+
+class Employee{
+    int salary,hrsPerDay;
+
+public:
+    void getInfo(int sal,int hrs){
+        this->salary=sal;
+        this->hrsPerDay=hrs;
+    }
+
+    void AddSal(){
+        if(salary<500) salary+=10;
+    }
+
+    void AddWork(){
+        if(hrsPerDay>6) salary+=5;
+    }
+
+    void printFinalSal(){
+        cout<<"The final salary of the employee is $:"<<salary;
+    }
+};
+
+int main(){
+    Employee ep;
+    ep.getInfo(100,7);
+    ep.AddSal();
+    ep.AddWork();
+    ep.printFinalSal();
+    return 0;
+}
+
+//Explanation:
+In the above code I have create an 'Employee' class which has private instance variables as 'salary' and 'hrsPerDay' denoting salary and no of hours of work per day of
+an individual, public member functions as 'getInfo' which acts as a constructor for setting values of instance variables, 'AddSal' which adds $10 to salary if salary of
+an employee is less than $500, 'AddWork' which adds $5 to salary if the number of woking hours of an employee exceeds 6 hours a day.
+I have used a public memeber function 'printFinalSal' to display the private instance variable 'salary'.
