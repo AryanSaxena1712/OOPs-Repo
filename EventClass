@@ -1,0 +1,107 @@
+//Problem Statement:
+Write a Java program to create a class called "Event" with attributes for event name, date, and location. Create subclasses "Seminar" and "MusicalPerformance" that
+add specific attributes like number of speakers for seminars and performer list for concerts. Implement methods to display event details and check for conflicts in
+the event schedule.
+
+//Solution:
+#include<iostream>
+#include<vector>
+#include<set>
+using namespace std;
+
+set<string>st;
+vector<vector<string> >event_det;
+class Event{
+protected:
+    string event_name,date,loc;   //date type -> "24-04-2025"
+
+public:
+    Event(string x,string y,string z){
+        event_name=x;
+        date=y;
+        loc=z;    
+    }
+
+};
+
+class Seminar: public Event{
+    int numberOfSpeakers;
+
+public:
+    Seminar(string x,string y,string z,int k):Event(x,y,z),numberOfSpeakers(k){};
+
+    void display(){
+        cout<<"Name of Seminar :"<<event_name<<endl;
+        cout<<"Date of Seminar :"<<date<<endl;
+        cout<<"Location of Seminar :"<<loc<<endl;
+    }
+};
+
+class MusicalPerformance: public Event{
+    vector<string>performer;
+
+public:
+    MusicalPerformance(string x,string y,string z,vector<string>k):Event(x,y,z),performer(k){};
+
+    void display(){
+        cout<<"Name of Concert :"<<event_name<<endl;
+        cout<<"Date of Concert :"<<date<<endl;
+        cout<<"Location of Concert :"<<loc<<endl;
+        cout<<"List of performers: "<<endl;
+        for(auto ele:performer) cout<<ele<<endl;
+    }
+};
+void displayEvents(){
+        for(auto ele: event_det){
+            for(auto e:ele) cout<<e<<" ";
+            cout<<endl;
+        }
+    }
+
+bool AddEvent(string event,string date,string loc){
+    if(st.find(date)!=st.end()){
+        cout<<"Conflict in dates, cannot assign event on "<<date<<" date";
+        return false;
+    }
+    else{
+        st.insert(date);
+        vector<string>temp;
+        temp.push_back(event);
+        temp.push_back(date);
+        temp.push_back(loc);
+        event_det.push_back(temp);
+        cout<<"Event added successfully"<<endl;
+        return true;
+    }
+}
+
+//Main function for sample inputs:
+int main(){
+    if(AddEvent("Concert","24-04-25","Mumbai")){ 
+    MusicalPerformance mp("Sony","24-04-25","Mumbai",{"Aryan","Saxena"});
+    mp.display();
+    }
+    if(AddEvent("Seminar","24-04-25","Mumbai")){ 
+    Seminar sp("Sony","24-04-25","Mumbai",10);
+    sp.display();
+    }
+    if(AddEvent("Seminar","25-04-25","Mumbai")){ 
+    Seminar sp2("Sony","25-04-25","Mumbai",10);
+    sp2.display();
+    }
+    if(AddEvent("Concert","26-04-25","Mumbai")){ 
+    MusicalPerformance mp2("Sony","26-04-25","Mumbai",{"A","B"});
+    mp2.display();
+    }
+    displayEvents();
+    return 0;
+}
+
+//Explanation:
+In the above solution I have created an 'Event' class which is also the base class for 'Seminar' and 'MusicalPerformance' subclasses. The 'Event' class contains member
+variables such as 'event_name','date' and 'loc' and a constructor. 'Seminar' and 'MusicalPerformance' being the subclasses of 'Event' class inherit these variables.
+The 'Seminar' and 'MusicalPerformance' classes have member variables and functions of their own such a 'diplay()' function.
+The problem is to prevent the dates of events from overlapping, to do so I have created a public stack accessible to all the classes and functions but mainly used in
+'AddEvent' function of boolean type, which checks the existence of the date in the set passed to it as an input.
+Another function is 'displayEvents' which diplays all the events created up untill now, this function uses a publicly declared 2-D vector of string type to store the
+entries.
