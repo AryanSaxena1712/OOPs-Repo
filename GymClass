@@ -1,0 +1,62 @@
+//Problem Statement:
+Write a Java program to create a class called "GymMembership" with attributes for member name, membership type, and duration. Create a subclass "PremiumMembership" that
+adds attributes for personal trainer availability and spa access. Implement methods to calculate membership fees and check for special offers based on membership type.
+
+//Solution:
+#include<iostream>
+using namespace std;
+
+class GymMembership{
+protected:
+    string name;     
+    string memberShip;   //monthly or annual
+    int duration;
+
+public:
+    GymMembership(string _name,string _memberShip,int _duration):name(_name),memberShip(_memberShip),duration(_duration){};
+
+    virtual int memberShipFees(){
+        double baseFee=50;
+        return duration*baseFee;
+    }
+
+    void checkSpecialOffers(){
+        if(memberShip == "Annual"){
+            cout<<"10% discount on annual fee"<<endl;
+        }
+        else cout<<"No discount available";
+    }
+};
+
+class PremiumMembership:public GymMembership{
+    bool trainer,spaAccess;
+
+public:
+    PremiumMembership(string _name,string _memberShip,int _duration,bool _trainer,bool _spaAccess):GymMembership(_name,_memberShip,_duration),trainer(_trainer),spaAccess(_spaAccess){};
+
+    int memberShipFees(){
+        double baseFee=50;
+
+        if(trainer){
+            baseFee+=30;
+        }
+        if(spaAccess){
+            baseFee+=10;
+        }
+        return baseFee * duration;
+    }
+};
+
+int main(){
+    GymMembership gm("Aryan","Annual",2);
+    gm.checkSpecialOffers();
+    cout<<gm.memberShipFees();
+    return 0;
+}
+
+//Explanation:
+The problem asks to implement 'GymMembership' as a base class and derive a 'PremiumMembership' class from it. The base class contains atrributes such as 'name','memberShip',
+'duration' also some member function such as 'membershipFees' and 'checkSpecialOffers'.
+The derived class 'PremiumMembership' has some additional atrributes such as 'trainer' and 'spaAccess'  which if true add to the value of memberShipfees.
+The 'membershipFees' function of the base class simply returns the product of duration and base fees while the overridden method in the derived class adds the amount 
+for trainer and spaAccess if availed by user, the the base fees and then return the product of base fees and duration.
