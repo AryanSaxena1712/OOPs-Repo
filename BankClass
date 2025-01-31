@@ -1,0 +1,56 @@
+//Problem Statement:
+Write a program to create a class called "BankAccount" with attributes for account number, account holder's name, and
+balance. Include methods for depositing and withdrawing money, as well as checking the balance. Create a subclass called
+"SavingsAccount" that adds an interest rate attribute and a method to apply interest.
+
+//Solution:
+#include<iostream>
+using namespace std;
+
+class BankAccount{
+protected:
+    int accNumber;
+    string AccHolder;
+    int balance;
+
+public:
+    BankAccount(int acc,string name,int bal):accNumber(acc),AccHolder(name),balance(bal){};
+
+    void depositeMoney(int amount){
+        balance+=amount;
+        cout<<"Money successfully deposited"<<endl;
+    }
+
+    void withdrawMoney(int amount){
+        if(amount>balance){
+            cout<<"Insufficient balance"<<endl;
+        }
+        else{
+             balance-=amount;
+             cout<<"Remaining balance is "<<balance<<endl;
+             }
+    }
+
+    int checkBalance(){
+        return balance;
+    }
+};
+
+class SavingsAccount:public BankAccount{
+    float interestRate;
+
+public:
+    SavingsAccount(int acc,string name,int bal,float inst):BankAccount(acc,name,bal),interestRate(inst){};
+
+    void applyInterest(){
+        balance += balance*(interestRate/100.0);
+        cout<<"Total balance after applying interest is:"<<balance<<endl;
+    }
+};
+
+//Explanation:
+The 'BankAccount' is the base class for 'SavingsAccount' class which has member variables as 'accNumber','AccHolder' and
+'balance'. The 'SavingsAccount' class has an additional member variable as 'interestRate' and a method to apply interest
+rate on the total account balance.
+The base class has methods such as 'depositeMoney' and 'withdrawMoney' which are used to deduct or increment balance
+accordingly.
